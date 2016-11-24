@@ -47,7 +47,7 @@ android {
     buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "com.fsck.k9.material"
+        applicationId "com.fsck.k9"
         testApplicationId "com.fsck.k9.tests"
 
         versionCode 23114
