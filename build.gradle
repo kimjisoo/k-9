@@ -1,58 +1,23 @@
 buildscript {
-  repositories {
-    mavenCentral()
-  }
-
-  dependencies {
-    classpath 'com.android.tools.build:gradle:1.5.0'
-  }
-}
-
-apply plugin: 'com.android.application'
-
-dependencies {
-  compile project(':plugins:Android-PullToRefresh:library')
-  compile project(':plugins:ckChangeLog:library')
-  compile project(':plugins:HoloColorPicker')
-  compile project(':plugins:openpgp-api-library')
-  compile project(':plugins:SafeContentResolver')
-  compile 'com.android.support:support-v13:19.1.0'
-  compile fileTree(dir: 'libs', include: '*.jar')
-}
-
-android {
-  compileSdkVersion 21
-  buildToolsVersion '20.0.0'
-
-  sourceSets {
-    main {
-      manifest.srcFile 'AndroidManifest.xml'
-      java.srcDirs = ['src']
-      res.srcDirs = ['res']
-      assets.srcDirs = ['assets']
+    repositories {
+        jcenter()
     }
 
-    androidTest {
-      manifest.srcFile 'tests/AndroidManifest.xml'
-      java.srcDirs = ['tests/src']
-      assets.srcDirs = ['tests/assets']
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
     }
-  }
-  
-
-  // Do not abort build if lint finds errors
-  lintOptions {
-    abortOnError false
-  }
-
-  packagingOptions {
-    exclude 'META-INF/DEPENDENCIES'
-    exclude 'META-INF/LICENSE'
-    exclude 'META-INF/NOTICE'
-  }
 }
 
-task testsOnJVM(type :GradleBuild, dependsOn: assemble) {
-  buildFile = 'tests-on-jvm/build.gradle'
-  tasks = ['test']
+project.ext {
+    testCoverage = project.hasProperty('testCoverage')
+    optimizeForDevelopment = project.hasProperty('optimizeForDevelopment') && optimizeForDevelopment == 'true'
+}
+
+subprojects {
+    project.plugins.whenPluginAdded { plugin ->
+        if ("com.android.build.gradle.AppPlugin".equals(plugin.class.name) ||
+                "com.android.build.gradle.LibraryPlugin".equals(plugin.class.name)) {
+            project.android.dexOptions.preDexLibraries = !rootProject.hasProperty('disablePreDex')
+        }
+    }
 }
