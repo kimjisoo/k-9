@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-
     <string name="materialcolorpicker__descLib">Material Color Picker Dialog</string>
     <string name="materialcolorpicker__errHex" >Hex Code Format incorrect</string>
     <string name="materialcolorpicker__inputColor">Color: </string>
@@ -1239,5 +1238,6 @@ Please submit bug reports, contribute new features and ask questions at
     <string name="recipient_error_parse_failed">Error parsing address!</string>
     <string name="account_settings_crypto_support_sign_only">Support signing of unencrypted messages</string>
     <string name="error_sign_only_no_encryption">Encryption unavailable in sign-only mode!</string>
+    <string name="unsigned_text_divider_label">Unsigned Text</string>
 
 </resources>

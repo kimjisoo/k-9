@@ -123,27 +123,27 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
         ConfirmationDialogFragmentListener, LoaderCallbacks<Cursor> {
 
     private static final String[] THREADED_PROJECTION = {
-        MessageColumns.ID,
-        MessageColumns.UID,
-        MessageColumns.INTERNAL_DATE,
-        MessageColumns.SUBJECT,
-        MessageColumns.DATE,
-        MessageColumns.SENDER_LIST,
-        MessageColumns.TO_LIST,
-        MessageColumns.CC_LIST,
-        MessageColumns.READ,
-        MessageColumns.FLAGGED,
-        MessageColumns.ANSWERED,
-        MessageColumns.FORWARDED,
-        MessageColumns.ATTACHMENT_COUNT,
-        MessageColumns.FOLDER_ID,
-        MessageColumns.PREVIEW_TYPE,
-        MessageColumns.PREVIEW,
-        ThreadColumns.ROOT,
-        SpecialColumns.ACCOUNT_UUID,
-        SpecialColumns.FOLDER_NAME,
+            MessageColumns.ID,
+            MessageColumns.UID,
+            MessageColumns.INTERNAL_DATE,
+            MessageColumns.SUBJECT,
+            MessageColumns.DATE,
+            MessageColumns.SENDER_LIST,
+            MessageColumns.TO_LIST,
+            MessageColumns.CC_LIST,
+            MessageColumns.READ,
+            MessageColumns.FLAGGED,
+            MessageColumns.ANSWERED,
+            MessageColumns.FORWARDED,
+            MessageColumns.ATTACHMENT_COUNT,
+            MessageColumns.FOLDER_ID,
+            MessageColumns.PREVIEW_TYPE,
+            MessageColumns.PREVIEW,
+            ThreadColumns.ROOT,
+            SpecialColumns.ACCOUNT_UUID,
+            SpecialColumns.FOLDER_NAME,
 
-        SpecialColumns.THREAD_COUNT,
+            SpecialColumns.THREAD_COUNT,
     };
 
     private static final int ID_COLUMN = 0;
@@ -532,7 +532,7 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
         if (!isManualSearch() && mSingleFolderMode) {
             Activity activity = getActivity();
             String displayName = FolderInfoHolder.getDisplayName(activity, mAccount,
-                mFolderName);
+                    mFolderName);
 
             mFragmentListener.setMessageListTitle(displayName);
 
@@ -669,7 +669,7 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
         mInflater = inflater;
 
@@ -971,11 +971,11 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
             // "Pull to refresh"
             mPullToRefreshView.setOnRefreshListener(
                     new PullToRefreshBase.OnRefreshListener<ListView>() {
-                @Override
-                public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                    checkMail();
-                }
-            });
+                        @Override
+                        public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                            checkMail();
+                        }
+                    });
         }
 
         // Disable pull-to-refresh until the message list has been loaded
@@ -1165,42 +1165,42 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
         }
 
         switch (requestCode) {
-        case ACTIVITY_CHOOSE_FOLDER_MOVE:
-        case ACTIVITY_CHOOSE_FOLDER_COPY: {
-            if (data == null) {
-                return;
-            }
+            case ACTIVITY_CHOOSE_FOLDER_MOVE:
+            case ACTIVITY_CHOOSE_FOLDER_COPY: {
+                if (data == null) {
+                    return;
+                }
 
-            final String destFolderName = data.getStringExtra(ChooseFolder.EXTRA_NEW_FOLDER);
-            final List<MessageReference> messages = mActiveMessages;
+                final String destFolderName = data.getStringExtra(ChooseFolder.EXTRA_NEW_FOLDER);
+                final List<MessageReference> messages = mActiveMessages;
 
-            if (destFolderName != null) {
+                if (destFolderName != null) {
 
-                mActiveMessages = null; // don't need it any more
+                    mActiveMessages = null; // don't need it any more
 
-                if (messages.size() > 0) {
-                    try {
-                        MessageReference firstMsg = messages.get(0);
-                        Account account = mPreferences.getAccount(firstMsg.getAccountUuid());
-                        LocalFolder firstMsgFolder = getFolder(firstMsg.getFolderName(), account);
-                        firstMsgFolder.setLastSelectedFolderName(destFolderName);
-                    } catch (MessagingException e) {
-                        Log.e(K9.LOG_TAG, "Error getting folder for setLastSelectedFolderName()", e);
+                    if (messages.size() > 0) {
+                        try {
+                            MessageReference firstMsg = messages.get(0);
+                            Account account = mPreferences.getAccount(firstMsg.getAccountUuid());
+                            LocalFolder firstMsgFolder = getFolder(firstMsg.getFolderName(), account);
+                            firstMsgFolder.setLastSelectedFolderName(destFolderName);
+                        } catch (MessagingException e) {
+                            Log.e(K9.LOG_TAG, "Error getting folder for setLastSelectedFolderName()", e);
+                        }
+                    }
+
+                    switch (requestCode) {
+                        case ACTIVITY_CHOOSE_FOLDER_MOVE:
+                            move(messages, destFolderName);
+                            break;
+
+                        case ACTIVITY_CHOOSE_FOLDER_COPY:
+                            copy(messages, destFolderName);
+                            break;
                     }
                 }
-
-                switch (requestCode) {
-                case ACTIVITY_CHOOSE_FOLDER_MOVE:
-                    move(messages, destFolderName);
-                    break;
-
-                case ACTIVITY_CHOOSE_FOLDER_COPY:
-                    copy(messages, destFolderName);
-                    break;
-                }
+                break;
             }
-            break;
-        }
         }
     }
 
@@ -1274,38 +1274,38 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId) {
-        case R.id.set_sort_date: {
-            changeSort(SortType.SORT_DATE);
-            return true;
-        }
-        case R.id.set_sort_arrival: {
-            changeSort(SortType.SORT_ARRIVAL);
-            return true;
-        }
-        case R.id.set_sort_subject: {
-            changeSort(SortType.SORT_SUBJECT);
-            return true;
-        }
-        case R.id.set_sort_sender: {
-            changeSort(SortType.SORT_SENDER);
-            return true;
-        }
-        case R.id.set_sort_flag: {
-            changeSort(SortType.SORT_FLAGGED);
-            return true;
-        }
-        case R.id.set_sort_unread: {
-            changeSort(SortType.SORT_UNREAD);
-            return true;
-        }
-        case R.id.set_sort_attach: {
-            changeSort(SortType.SORT_ATTACHMENT);
-            return true;
-        }
-        case R.id.select_all: {
-            selectAll();
-            return true;
-        }
+            case R.id.set_sort_date: {
+                changeSort(SortType.SORT_DATE);
+                return true;
+            }
+            case R.id.set_sort_arrival: {
+                changeSort(SortType.SORT_ARRIVAL);
+                return true;
+            }
+            case R.id.set_sort_subject: {
+                changeSort(SortType.SORT_SUBJECT);
+                return true;
+            }
+            case R.id.set_sort_sender: {
+                changeSort(SortType.SORT_SENDER);
+                return true;
+            }
+            case R.id.set_sort_flag: {
+                changeSort(SortType.SORT_FLAGGED);
+                return true;
+            }
+            case R.id.set_sort_unread: {
+                changeSort(SortType.SORT_UNREAD);
+                return true;
+            }
+            case R.id.set_sort_attach: {
+                changeSort(SortType.SORT_ATTACHMENT);
+                return true;
+            }
+            case R.id.select_all: {
+                selectAll();
+                return true;
+            }
         }
 
         if (!mSingleAccountMode) {
@@ -1315,19 +1315,19 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
         }
 
         switch (itemId) {
-        case R.id.send_messages: {
-            onSendPendingMessages();
-            return true;
-        }
-        case R.id.expunge: {
-            if (mCurrentFolder != null) {
-                onExpunge(mAccount, mCurrentFolder.name);
+            case R.id.send_messages: {
+                onSendPendingMessages();
+                return true;
             }
-            return true;
-        }
-        default: {
-            return super.onOptionsItemSelected(item);
-        }
+            case R.id.expunge: {
+                if (mCurrentFolder != null) {
+                    onExpunge(mAccount, mCurrentFolder.name);
+                }
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
         }
     }
 
@@ -1619,7 +1619,7 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
 
         @Override
         public void synchronizeMailboxFinished(Account account, String folder,
-        int totalMessagesInMailbox, int numNewMessages) {
+                                               int totalMessagesInMailbox, int numNewMessages) {
 
             if (updateForMe(account, folder)) {
                 mHandler.progress(false);
@@ -1671,10 +1671,10 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
 
         MessageListAdapter() {
             super(getActivity(), null, 0);
-            mAttachmentIcon = getResources().getDrawable(R.drawable.ic_email_attachment_small);
-            mAnsweredIcon = getResources().getDrawable(R.drawable.ic_email_answered_small);
-            mForwardedIcon = getResources().getDrawable(R.drawable.ic_email_forwarded_small);
-            mForwardedAnsweredIcon = getResources().getDrawable(R.drawable.ic_email_forwarded_answered_small);
+            mAttachmentIcon = getResources().getDrawable(R.drawable.ic_attachment_grey);
+            mAnsweredIcon = getResources().getDrawable(R.drawable.ic_subdirectory_arrow_left);
+            mForwardedIcon = getResources().getDrawable(R.drawable.ic_subdirectory_arrow_right);
+            mForwardedAnsweredIcon = getResources().getDrawable(R.drawable.arrow_expand);
         }
 
         private String recipientSigil(boolean toMe, boolean ccMe) {
@@ -2346,8 +2346,8 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
      * @see #startActivityForResult(Intent, int)
      */
     private void displayFolderChoice(int requestCode, String sourceFolderName,
-            String accountUuid, String lastSelectedFolderName,
-            List<MessageReference> messages) {
+                                     String accountUuid, String lastSelectedFolderName,
+                                     List<MessageReference> messages) {
         Intent intent = new Intent(getActivity(), ChooseFolder.class);
         intent.putExtra(ChooseFolder.EXTRA_ACCOUNT, accountUuid);
         intent.putExtra(ChooseFolder.EXTRA_SEL_FOLDER, lastSelectedFolderName);
@@ -2444,7 +2444,7 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
      * @return {@code true}, if operation is possible.
      */
     private boolean checkCopyOrMovePossible(final List<MessageReference> messages,
-            final FolderOperation operation) {
+                                            final FolderOperation operation) {
 
         if (messages.isEmpty()) {
             return false;
@@ -2464,7 +2464,7 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
             if ((operation == FolderOperation.MOVE && !mController.isMoveCapable(message)) ||
                     (operation == FolderOperation.COPY && !mController.isCopyCapable(message))) {
                 final Toast toast = Toast.makeText(getActivity(), R.string.move_copy_cannot_copy_unsynced_message,
-                                                   Toast.LENGTH_LONG);
+                        Toast.LENGTH_LONG);
                 toast.show();
                 return false;
             }
@@ -2509,7 +2509,7 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
      *         Specifies what operation to perform. Never {@code null}.
      */
     private void copyOrMove(List<MessageReference> messages, final String destination,
-            final FolderOperation operation) {
+                            final FolderOperation operation) {
 
         Map<String, List<MessageReference>> folderMap = new HashMap<>();
 
@@ -2716,54 +2716,54 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
              * This is the case currently so safe assumption.
              */
             switch (item.getItemId()) {
-            case R.id.delete: {
-                List<MessageReference> messages = getCheckedMessages();
-                onDelete(messages);
-                mSelectedCount = 0;
-                break;
-            }
-            case R.id.mark_as_read: {
-                setFlagForSelected(Flag.SEEN, true);
-                break;
-            }
-            case R.id.mark_as_unread: {
-                setFlagForSelected(Flag.SEEN, false);
-                break;
-            }
-            case R.id.flag: {
-                setFlagForSelected(Flag.FLAGGED, true);
-                break;
-            }
-            case R.id.unflag: {
-                setFlagForSelected(Flag.FLAGGED, false);
-                break;
-            }
-            case R.id.select_all: {
-                selectAll();
-                break;
-            }
+                case R.id.delete: {
+                    List<MessageReference> messages = getCheckedMessages();
+                    onDelete(messages);
+                    mSelectedCount = 0;
+                    break;
+                }
+                case R.id.mark_as_read: {
+                    setFlagForSelected(Flag.SEEN, true);
+                    break;
+                }
+                case R.id.mark_as_unread: {
+                    setFlagForSelected(Flag.SEEN, false);
+                    break;
+                }
+                case R.id.flag: {
+                    setFlagForSelected(Flag.FLAGGED, true);
+                    break;
+                }
+                case R.id.unflag: {
+                    setFlagForSelected(Flag.FLAGGED, false);
+                    break;
+                }
+                case R.id.select_all: {
+                    selectAll();
+                    break;
+                }
 
-            // only if the account supports this
-            case R.id.archive: {
-                onArchive(getCheckedMessages());
-                mSelectedCount = 0;
-                break;
-            }
-            case R.id.spam: {
-                onSpam(getCheckedMessages());
-                mSelectedCount = 0;
-                break;
-            }
-            case R.id.move: {
-                onMove(getCheckedMessages());
-                mSelectedCount = 0;
-                break;
-            }
-            case R.id.copy: {
-                onCopy(getCheckedMessages());
-                mSelectedCount = 0;
-                break;
-            }
+                // only if the account supports this
+                case R.id.archive: {
+                    onArchive(getCheckedMessages());
+                    mSelectedCount = 0;
+                    break;
+                }
+                case R.id.spam: {
+                    onSpam(getCheckedMessages());
+                    mSelectedCount = 0;
+                    break;
+                }
+                case R.id.move: {
+                    onMove(getCheckedMessages());
+                    mSelectedCount = 0;
+                    break;
+                }
+                case R.id.copy: {
+                    onCopy(getCheckedMessages());
+                    mSelectedCount = 0;
+                    break;
+                }
             }
             if (mSelectedCount == 0) {
                 mActionMode.finish();
@@ -2921,7 +2921,7 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
         int listViewPosition = adapterToListViewPosition(position);
         if (listViewPosition != AdapterView.INVALID_POSITION &&
                 (listViewPosition < mListView.getFirstVisiblePosition() ||
-                listViewPosition > mListView.getLastVisiblePosition())) {
+                        listViewPosition > mListView.getLastVisiblePosition())) {
             mListView.setSelection(listViewPosition);
         }
 
@@ -3144,7 +3144,7 @@ public class MessageListFragment extends Fragment implements OnItemClickListener
     public boolean onSearchRequested() {
         String folderName = (mCurrentFolder != null) ? mCurrentFolder.name : null;
         return mFragmentListener.startSearch(mAccount, folderName);
-   }
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {

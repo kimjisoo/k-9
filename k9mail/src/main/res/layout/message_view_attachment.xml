@@ -19,7 +19,7 @@
                 android:id="@+id/attachment_icon"
                 android:layout_width="46dip"
                 android:layout_height="46dip"
-                android:src="@drawable/attached_image_placeholder"
+                android:src="@drawable/ic_attachment"
                 android:layout_marginLeft="6dip"
                 android:layout_marginRight="6dip"
                 android:layout_marginBottom="6dip"

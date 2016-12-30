@@ -163,7 +163,7 @@
         <item name="backgroundColorChooseAccountHeader">#404040</item>
     </style>
 
-    <style name="Theme.K9.Dialog.Translucent.Dark" parent="@android:style/Theme.Material.Dialog">
+    <style name="Theme.K9.Dialog.Translucent.Dark" parent="@android:style/Theme.Holo.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
@@ -172,7 +172,7 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
     </style>
 
-    <style name="Theme.K9.Dialog.Translucent.Light" parent="@android:style/Theme.Material.Light.Dialog">
+    <style name="Theme.K9.Dialog.Translucent.Light" parent="@android:style/Theme.Holo.Light.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>

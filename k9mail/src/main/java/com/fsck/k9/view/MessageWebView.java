@@ -65,7 +65,7 @@ public class MessageWebView extends RigidWebView {
         if (K9.getK9MessageViewTheme() == Theme.DARK) {
             // Black theme should get a black webview background
             // we'll set the background of the messages on load
-            this.setBackgroundColor(0xffffffff);
+            this.setBackgroundColor(0xff9e9e9e);
         }
 
         final WebSettings webSettings = this.getSettings();

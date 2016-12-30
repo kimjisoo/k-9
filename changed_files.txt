@@ -2,12 +2,16 @@ themes
 custom_actionbar
 message_list_item
 message_view_header
-message_view_attachement
+message_view_attachment
 message_compose
-message_compose_recipiwents
+message_compose_recipients
+message_compose_attachment
 helper html_converter
 
-settup accountsettings
+MessageWebView
+MessageListFragment
+
+settup acountsettings
 setup prefs
 
 icons:
