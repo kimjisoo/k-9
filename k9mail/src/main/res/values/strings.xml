@@ -5,6 +5,7 @@
     <string name="materialcolorpicker__errHex" >Hex Code Format incorrect</string>
     <string name="materialcolorpicker__inputColor">Color: </string>
     <string name="materialcolorpicker__btnSelectColor">Select</string>
+    <string name="global_settings_confirm_menu_mark_all_read">Mark all messages as read</string>
 
     <!-- === App-specific strings ============================================================= -->
 

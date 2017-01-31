@@ -8,6 +8,7 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="4dp"
     android:orientation="vertical"
+    android:background="#45bdbdbd"
     tools:showIn="@layout/message_compose">
 
     <LinearLayout
@@ -291,7 +292,7 @@
                 android:layout_height="match_parent"
                 android:padding="6dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_action_expand_light"
+                android:src="@drawable/ic_chevron_down"
                 android:id="@+id/recipient_expander"
                 />
 

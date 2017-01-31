@@ -50,13 +50,12 @@ android {
         applicationId "com.fsck.k9"
         testApplicationId "com.fsck.k9.tests"
 
-        versionCode 23190
-        versionName '5.200-RC1'
+        versionCode 23210
+        versionName '5.203'
 
         minSdkVersion 21
         targetSdkVersion 24
 
-        generatedDensities = ['mdpi', 'hdpi', 'xhdpi']
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

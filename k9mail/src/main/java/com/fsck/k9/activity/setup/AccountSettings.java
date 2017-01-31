@@ -926,6 +926,36 @@ public class AccountSettings extends K9PreferenceActivity {
 
         switch (id) {
             case DIALOG_COLOR_PICKER_ACCOUNT: {
+                dialog = new ColorPickerDialog(this,
+                        new ColorPickerDialog.OnColorChangedListener() {
+                            public void colorChanged(int color) {
+                                mAccount.setChipColor(color);
+                            }
+                        },
+                        mAccount.getChipColor());
+
+                break;
+            }
+            case DIALOG_COLOR_PICKER_LED: {
+                dialog = new ColorPickerDialog(this,
+                        new ColorPickerDialog.OnColorChangedListener() {
+                            public void colorChanged(int color) {
+                                mAccount.getNotificationSetting().setLedColor(color);
+                            }
+                        },
+                        mAccount.getNotificationSetting().getLedColor());
+
+                break;
+            }
+        }
+
+        return dialog;
+    }
+
+    @Override
+    public void onPrepareDialog(int id, Dialog dialog) {
+        switch (id) {
+            case DIALOG_COLOR_PICKER_ACCOUNT: {
 
                 final ColorPicker cp = new ColorPicker(AccountSettings.this, 76, 175, 80);
 
@@ -981,24 +1011,6 @@ public class AccountSettings extends K9PreferenceActivity {
                     }
                 });
 
-                break;
-            }
-        }
-
-        return dialog;
-    }
-
-    @Override
-    public void onPrepareDialog(int id, Dialog dialog) {
-        switch (id) {
-            case DIALOG_COLOR_PICKER_ACCOUNT: {
-                ColorPickerDialog colorPicker = (ColorPickerDialog) dialog;
-                colorPicker.setColor(mAccount.getChipColor());
-                break;
-            }
-            case DIALOG_COLOR_PICKER_LED: {
-                ColorPickerDialog colorPicker = (ColorPickerDialog) dialog;
-                colorPicker.setColor(mAccount.getNotificationSetting().getLedColor());
                 break;
             }
         }
